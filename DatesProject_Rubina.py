@@ -1,6 +1,8 @@
 from datetime import datetime, timedelta, time, timezone
 import calendar 
+from pytz import timezone
 import pytz
+
 # Import needed Modules
 #Design User Input Menu
 menu = input("""We're all about time today. What to you want to do?
@@ -76,6 +78,37 @@ def menu_6():
         print("Please choose a valid option!")
 #Timezone Conversion
 def menu_7():
+    choice = input("""What time is it in
+    [1]Tokyo / Japan
+    [2]Dublin / Ireland
+    [3]San Franciso / USA
+    [4]Berlin / Germany
+    [5]Johannesburg / South Africa""")
+    if choice == "1":
+        ttokyo = current_time.astimezone(timezone('Japan'))
+        print(f"The current time in Tokyo / Japan is {datetime.strftime(ttokyo,'%H:%m')}")
+    elif choice == "2":
+        tdublin = current_time.astimezone(timezone('Europe/Dublin'))
+        print(f"The current time in Dublin / Ireland is {datetime.strftime(tdublin,'%H:%m')}")    
+    elif choice == "3":
+        tsanfran = current_time.astimezone(timezone('America/Los_Angeles'))
+        print(f"The current time in San Francisco / USE is {datetime.strftime(tsanfran,'%H:%m')}") 
+    elif choice == "4":
+        tberlin = current_time.astimezone(timezone('Europe/Berlin'))
+        print(f"The current time in Berlin / Germany is {datetime.strftime(tberlin,'%H:%m')}") 
+    elif choice == "5":
+        tjohan = current_time.astimezone(timezone('Africa/Johannesburg'))
+        print(f"The current time in Johannesburg / South Africa is {datetime.strftime(tjohan,'%H:%m')}") 
+    else:
+        print("Please make a valid choice.")                    
+#What time is it at the other end of the world                   
+def menu_8():
+   #which timezone is the user in
+   local_now = current_time.astimezone()
+   local_tz = local_now.tzinfo
+   local_tzname = local_tz.tzname(local_now)
+   print(local_tzname)
+   #which timezone is on the other end of the world                      
 
 
 
@@ -93,6 +126,8 @@ elif menu == "5":
 elif menu == "6":
     menu_6()
 elif menu == "7":
-    menu_7()        
+    menu_7()
+elif menu == "8":
+    menu_8()            
 else:
     print("Please make a valid choice.")    
