@@ -2,6 +2,7 @@ from datetime import datetime, timedelta, time, timezone
 import calendar 
 from pytz import timezone
 import pytz
+import random
 
 # Import needed Modules
 #Design User Input Menu
@@ -106,11 +107,18 @@ def menu_8():
    #which timezone is the user in
    local_now = current_time.astimezone()
    local_tz = local_now.tzinfo
-   local_tzname = local_tz.tzname(local_now)
-   print(local_tzname)
-   #which timezone is on the other end of the world                      
+   print(local_now)
+   print(local_tz)
+   #which timezone is on the other end of the world
+   oppositetime = local_now + timedelta(hours= 12)
+   print(oppositetime)
+   oppositetz = oppositetime.tzinfo
+   print(oppositetz)
 
 
+def menu_9():
+    jokes = ["Why do Python programmers prefer using snake_case? Because they don't like Java.","Why did the programmer go broke? Because he lost his domain in Python.","Why was the computer cold? It left its Windows open and caught a Python.","What do you call a snake that is exactly 3.14 meters long? A pi-thon.","Why did the Python developer always carry a pencil and paper? To draw out his bugs.","Why did the Python programmer get arrested? Because he was caught using pyth-on.","Why did the Python developer get expelled from school? He was always up to some pyth-onic mischief.","What's a Python programmer's favorite type of shoes? Sneakers!","Why did the Python developer bring a ladder to the presentation? Because they heard Python is good with scales.","Why did the Python developer go broke? His code never had any cents.","Why do Python programmers make good detectives? Because they are excellent at following clues.","Why did the Python developer go broke? Too many framework dependencies.","Why do Python programmers prefer gardening? Because they love to use decorators.","Why did the Python programmer get bitten by a mosquito? He forgot to use insect-repellent @property.","Why was the Python programmer so cool? Because they had good 'class' inheritance.","Why did the Python developer start a rock band? Because they wanted to use the 'Rock, Paper, Scissors' module.","Why do Python programmers prefer coffee? Because it helps them with the Java.","What do you call a snake that works for the government? A civil serpent.","Why did the Python developer go broke? They spent all their money on a Python book, but it only had a single chapter.","Why did the Python developer get locked out of their house? They forgot their keys() inside."]
+    print(random.choice(jokes))
 
 #Create Menu Tree as an if/else condition                 
 if menu == "1":
@@ -128,6 +136,9 @@ elif menu == "6":
 elif menu == "7":
     menu_7()
 elif menu == "8":
-    menu_8()            
+    menu_8()
+elif menu == "9":
+    menu_9()
+            
 else:
     print("Please make a valid choice.")    
