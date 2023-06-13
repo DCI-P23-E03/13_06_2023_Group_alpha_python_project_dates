@@ -1,4 +1,5 @@
 import datetime
 
-Now=datetime.datetime.now()
-print(f"The current time is: {Now.hour}:{Now.minute}:{Now.second}")
+def current_time():
+    Now=datetime.datetime.now()
+    print(f"The current time is: {Now.strftime('%H:%M:%S)')}")

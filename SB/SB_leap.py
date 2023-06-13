@@ -17,19 +17,20 @@ def until_leap(DateTime):
     ToNextLeap=NextLeapDate - DateTime
     print(f"Till the next leap year: {ToNextLeap}")
 
-flag=0
-while (flag==0):
-    input_date = input("Enter a date (yyyy/mm/dd) or type \"now\" for current date: ")
-    if input_date=="now":
-        Some_date=datetime.datetime.now()
-        break
-    try:
-        Some_date=datetime.datetime.strptime(input_date,"%Y/%m/%d")
-        flag=1
-    except ValueError:
-        print("Invalid date")
+def take_and_check_leap():
+    flag=0
+    while (flag==0):
+        input_date = input("Enter a date (yyyy/mm/dd) or type \"now\" for current date: ")
+        if input_date=="now":
+            Some_date=datetime.datetime.now()
+            break
+        try:
+            Some_date=datetime.datetime.strptime(input_date,"%Y/%m/%d")
+            flag=1
+        except ValueError:
+            print("Invalid date")
 
-check_leap(Some_date.year)
-until_leap(Some_date)
+    check_leap(Some_date.year)
+    until_leap(Some_date)
 
 

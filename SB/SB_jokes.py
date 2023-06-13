@@ -1,4 +1,5 @@
 #run $pip install pyjokes
 import pyjokes
 
-print(pyjokes.get_joke(language='es'))
+def random_joke():
+    print(pyjokes.get_joke(language='en'))
