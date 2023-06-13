@@ -27,13 +27,18 @@ def menu_3(): # display user input date (string) as a datetime object
     print(type(userdate_obj))
 def menu_4(): # Leapyear
     current_leap = calendar.isleap(current_year)
-    next_leap = ((current_year//4+1)*4)
-    leapcountup = 
+    next_leap = ((current_year//4+1)*4) #calculate next leap
+    leapcountup = datetime(next_leap,1,1,00,00,00) - current_time
     print(next_leap)
     if current_leap == False:
-        print(f"{current_year} is not a leap year. The next leapyear is {next_leap} an will start in {leapcountup} days")
+        if next_leap%400 == 0 or next_leap%100 != 0 and next_leap%4 == 0: # resolve gregorian calendar irritations
+            print(f"{current_year} is not a leap year. The next leapyear is {next_leap} and will start in {leapcountup.days} days")
+        else:
+            print("The next leap year could not be correctly determined...brushing up my math skills.")
     else:
         print(f"{current_year} is a leap year. The next leapyear will start in {leapyearcountup}")
+def menu_5 (): 
+            
 #Create Menu Tree as an if/else condition                 
 if menu == "1":
     menu_1()
