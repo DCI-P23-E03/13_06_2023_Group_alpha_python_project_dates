@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta, timezone, date
 import calendar 
 from pytz import timezone
 import random
@@ -172,9 +172,113 @@ def menu_9():
     print(pyjokes.get_joke(language='en'))
 #Surprise
 def menu_10():
-    birthday =  input ("When were you born? Please enter date in the following format yyyy-mm-dd: ")
+    birthday =  input ("When were you born? Please enter date in the following format 'dd-mm-yyyy': ")
     try:    
-        birthday.    
+        print("\n")
+        birthdate = datetime.strptime(birthday, "%d-%m-%Y")
+        birthyear = int(datetime.strftime(birthdate, "%Y"))
+        rat = [1924, 1936, 1948, 1960, 1972, 1984, 1996, 2008, 2020]
+        ox = [1925, 1937, 1949, 1961, 1973, 1985, 1997, 2009, 2021]
+        tiger =[1926, 1938, 1950, 1962, 1974, 1986, 1998, 2010, 2022]
+        rabbit = [1927, 1939, 1951, 1963, 1975, 1987, 1999, 2011, 2023]
+        dragon = [1928, 1940, 1952, 1964, 1976, 1988, 2000, 2012, 2024]
+        snake = [1929, 1941, 1953, 1965, 1977, 1989, 2001, 2013, 2025]
+        horse = [1930, 1942, 1954, 1966, 1978, 1990, 2002, 2014, 2026]
+        goat = [1931, 1943, 1955, 1967, 1979, 1991, 2003, 2015, 2027]
+        monkey = [1932, 1944, 1956, 1968, 1980, 1992, 2004, 2016, 2028]
+        rooster = [1933, 1945, 1957, 1969, 1981, 1993, 2005, 2017, 2029]
+        dog = [1934, 1946, 1958, 1970, 1982, 1994, 2006, 2018, 2030]
+        pig = [1935, 1947, 1959, 1971, 1983, 1995, 2007, 2019, 2031]
+        animal = ""
+        if birthyear in rat:
+            animal = "Rat"
+            p_traits = "quick-witted, resourceful, versatile, kind"
+        elif birthyear in ox:
+            animal = "Ox"
+            p_traits = "diligent, dependable, strong, determined"
+        elif birthyear in tiger:
+            animal = "Tiger"
+            p_traits = "brave, confident, competitive"
+        elif birthyear in rabbit:
+            animal = "Rabbit"
+            p_traits = "quiet, elegant, kind, responsible"
+        elif birthyear in dragon:
+            animal = "Dragon"
+            p_traits = "confident, intelligent, enthusiastic"
+        elif birthyear in snake:
+            animal = "Snake"
+            p_traits = "enigmatic, intelligent, wise"
+        elif birthyear in horse:
+            animal = "Horse"
+            p_traits = "Animated, active, energetic"
+        elif birthyear in goat:
+            animal = "Goat"
+            p_traits = "calm, gentle, sympathetic"
+        elif birthyear in monkey:
+            animal = "Monkey"
+            p_traits = "sharp, smart, curious"
+        elif birthyear in rooster:
+            animal = "Rooster"
+            p_traits = "observant, hardworking, courageous"
+        elif birthyear in dog:
+            animal = "dog"
+            p_traits = "lovely, honest, prudent"
+        elif birthyear in pig:
+            animal = "Pig"
+            p_traits = "compassionate, generous, diligent"
+        else:
+            print("You can't be that old! Or not born yet!?!")    
+        if animal !="":
+            print(f"You were born in {birthyear} - the year of the {animal}.\n{animal}\'s are said to be {p_traits}.\n")
+        #Determine Zodiac Zign
+        if birthdate.month == 2 and birthdate.day == 29:
+            zodiac = "Pisces"
+        else:    
+            ordday = date.toordinal(birthdate.replace(year=1999))-date.toordinal(date(1998,12,31))   #return datenumber in the year 1999(non leap)
+            if ordday <=19 or ordday > 355:
+                zodiac = "Capricorn" 
+            elif ordday > 19  and ordday <= 49:
+                zodiac = "Aquarius"
+            elif ordday > 49  and ordday <= 79:
+                zodiac = "Pisces"
+            elif ordday > 79  and ordday <= 109:
+                zodiac = "Aries"
+            elif ordday > 109  and ordday <= 140:
+                zodiac = "Taurus"
+            elif ordday > 140  and ordday <= 171: 
+                zodiac = "Gemini"
+            elif ordday > 171  and ordday <= 203: 
+                zodiac = "Cancer"
+            elif ordday > 203  and ordday <= 234: 
+                zodiac = "Leo"
+            elif ordday > 234  and ordday <= 265: 
+                zodiac = "Virgo"
+            elif ordday > 265  and ordday <= 295: 
+                zodiac = "Libra"
+            elif ordday > 295  and ordday <= 325: 
+                zodiac = "Scorpio"
+            else: 
+                zodiac = "Sagittarius"                    
+        print (f"Your Zodiac Sign is {zodiac}. Enjoy this knowledge.\n")
+        #How long have you been alive?
+        alive = current_time - birthdate # timediff til birthday, age
+        print(f"You have been around for {alive.days} days.\n")
+        if birthdate.month != 2 and birthdate.day != 29:
+            if current_time.replace(hour=0, minute=0, second=0, microsecond=0) > birthdate.replace(year = current_year):
+                untilbirthday = birthdate.replace(year = current_year+1) - current_time.replace(hour=0, minute=0, second=0, microsecond=0)
+                print(f"Your next birthday will come up in {untilbirthday.days} day(s).")
+            elif current_time.replace(hour=0, minute=0, second=0, microsecond=0) < birthdate.replace(year = current_year):
+                untilbirthday = birthdate.replace(year = current_year) - current_time.replace(hour=0, minute=0, second=0, microsecond=0)
+                print(f"Your next birthday will come up in {untilbirthday.days} day(s).")   
+            else:
+                print("Happy Birthday!")
+        else:
+                print("You poor soul. Only a proper birthday every 4 years.")
+
+    except ValueError:
+        print("Please enter a valid date.")
+
+
 
 #Create Menu Tree as an if/else condition
 while True:
