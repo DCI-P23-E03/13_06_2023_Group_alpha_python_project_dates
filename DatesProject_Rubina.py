@@ -3,7 +3,12 @@ import calendar
 from pytz import timezone
 import pytz
 import random
-
+#run pip install timezonefinder
+from timezonefinder import TimezoneFinder
+#run pip install geopy, pip install geopanda
+from geopy.geocoders import Nominatim
+tf = TimezoneFinder()
+geolocator = Nominatim(user_agent="geoapiExercises")
 # Import needed Modules
 #Design User Input Menu
 menu = input("""We're all about time today. What to you want to do?
@@ -104,18 +109,36 @@ def menu_7():
         print("Please make a valid choice.")                    
 #What time is it at the other end of the world                   
 def menu_8():
-   #which timezone is the user in
-   local_now = current_time.astimezone()
-   local_tz = local_now.tzinfo
-   print(local_now)
-   print(local_tz)
-   #which timezone is on the other end of the world
-   oppositetime = local_now + timedelta(hours= 12)
-   print(oppositetime)
-   oppositetz = oppositetime.tzinfo
-   print(oppositetz)
-
-
+   user_location = input ("Where are you at, please enter 'City, Country': ")
+    #convert userlocation into coordinates (longitude and latitude) 
+    location = geolocator.geocode(user_location)
+    userlat = location.latitude
+    userlong =location.longitude
+    #print(userlat, userlong)
+    # Calculate Antipode
+    anti_latitude = -location.latitude
+    anti_longitude = 180-location.longitude
+    #print(anti_latitude)
+    #print(anti_longitude)
+    #Determine Usertimezone.
+    user_timezone = tf.timezone_at(lng=userlong, lat=userlat)
+    #print(current_time)
+    #print(user_timezone)
+    #Determin Antipode Timezone
+    anti_timezone = tf.timezone_at(lng = anti_longitude, lat= anti_latitude)
+    #print(anti_timezone)
+    #Determine Time in Antipod Timezone
+    tantipode = current_time.astimezone(timezone(str(anti_timezone)))
+    #print(tantipode)
+    there = tantipode.replace(tzinfo=None) # Remove Timezone Information from Antipode Time (Otherwise timediff will be 0)
+    # Determine if Antipod is east or west as this influence the direction of calculation
+    if anti_longitude < userlong: 
+        timediff = (current_time - there)/3600 # Converting Timedifference to hours
+    else:
+        timediff = (there - here)/3600 # Converting Timedifference to hours
+    
+    #print(timediff.seconds/3600)
+#Google tell me a joke
 def menu_9():
     jokes = ["Why do Python programmers prefer using snake_case? Because they don't like Java.","Why did the programmer go broke? Because he lost his domain in Python.","Why was the computer cold? It left its Windows open and caught a Python.","What do you call a snake that is exactly 3.14 meters long? A pi-thon.","Why did the Python developer always carry a pencil and paper? To draw out his bugs.","Why did the Python programmer get arrested? Because he was caught using pyth-on.","Why did the Python developer get expelled from school? He was always up to some pyth-onic mischief.","What's a Python programmer's favorite type of shoes? Sneakers!","Why did the Python developer bring a ladder to the presentation? Because they heard Python is good with scales.","Why did the Python developer go broke? His code never had any cents.","Why do Python programmers make good detectives? Because they are excellent at following clues.","Why did the Python developer go broke? Too many framework dependencies.","Why do Python programmers prefer gardening? Because they love to use decorators.","Why did the Python programmer get bitten by a mosquito? He forgot to use insect-repellent @property.","Why was the Python programmer so cool? Because they had good 'class' inheritance.","Why did the Python developer start a rock band? Because they wanted to use the 'Rock, Paper, Scissors' module.","Why do Python programmers prefer coffee? Because it helps them with the Java.","What do you call a snake that works for the government? A civil serpent.","Why did the Python developer go broke? They spent all their money on a Python book, but it only had a single chapter.","Why did the Python developer get locked out of their house? They forgot their keys() inside."]
     print(random.choice(jokes))
