@@ -1,11 +1,11 @@
 from datetime import datetime, timedelta, timezone, date
 import calendar 
 from pytz import timezone
-import random
 #run pip install timezonefinder
 from timezonefinder import TimezoneFinder
 #run pip install geopy, pip install geopanda
 from geopy.geocoders import Nominatim
+#run pip install pyjokes
 import pyjokes
 tf = TimezoneFinder()
 geolocator = Nominatim(user_agent="geoapiExercises")
@@ -65,6 +65,7 @@ def menu_4():
 
     check_leap(Some_date.year)
     until_leap(Some_date)
+#Timedifference time    
 def menu_5 ():
     t1 = input("Input a first date in the following format 'yyyy-mm-dd HH:MM:SS': ")
     t2 = input("Input another date in the following format 'yyyy-mm-dd HH:MM:SS': ") 
@@ -177,6 +178,7 @@ def menu_10():
         print("\n")
         birthdate = datetime.strptime(birthday, "%d-%m-%Y")
         birthyear = int(datetime.strftime(birthdate, "%Y"))
+        #Chinese Zodiac Signs
         rat = [1924, 1936, 1948, 1960, 1972, 1984, 1996, 2008, 2020]
         ox = [1925, 1937, 1949, 1961, 1973, 1985, 1997, 2009, 2021]
         tiger =[1926, 1938, 1950, 1962, 1974, 1986, 1998, 2010, 2022]
